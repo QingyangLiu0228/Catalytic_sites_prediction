@@ -1,0 +1,7 @@
+================================================================
+Job started: Thu Apr 23 01:28:41 CDT 2026
+Job ID: 272823
+Node: compute-1-1.local
+GPUs allocated: 0
+================================================================
+Python: /data/data3/conglab/s441865/conda/envs/GNN/bin/python

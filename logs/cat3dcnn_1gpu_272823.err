@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/data/data3/conglab/s441865/conda/envs/GNN/lib/python3.10/site-packages/torch/__init__.py", line 1332, in <module>
+    _C._initExtension(manager_path())
+  File "/data/data3/conglab/s441865/conda/envs/GNN/lib/python3.10/site-packages/torch/cuda/__init__.py", line 252, in <module>
+    OutOfMemoryError = torch._C._OutOfMemoryError
+AttributeError: module 'torch._C' has no attribute '_OutOfMemoryError'

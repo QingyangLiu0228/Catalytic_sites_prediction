@@ -1,0 +1,47 @@
+# ============================================================================
+# Default configuration for Catalytic Site Prediction (Set A, 3D CNN)
+# ============================================================================
+# To override any field for a specific experiment, create a new yaml under
+# configs/ that sets only the fields you want to change. `utils.load_config`
+# will merge it on top of this file.
+# ============================================================================
+
+# ---- Seeds & reproducibility ------------------------------------------------
+seeds: [42, 123, 2026]   # Multi-seed training, run sequentially
+
+# ---- Data paths -------------------------------------------------------------
+csv_path: /data/data3/conglab/s441865/code/setA.csv
+pdb_dir: /data/data3/conglab/s441865/prepare_mcat_training/step12_pdbs/
+esm_dir: /data/data3/conglab/s441865/esm2_embeddings_fasta/
+save_dir: /data/data3/conglab/s441865/code/Catalytic_sites_setA_3dcnn/results
+
+# ---- Feature extraction -----------------------------------------------------
+esm_layer: 33            # 0..36 for ESM-2 3B
+box_size: 20             # 3D voxel box side length (Angstrom)
+voxel_size: 1            # Discretization resolution
+
+# ---- Training ---------------------------------------------------------------
+# NOTE ON DDP SCALING:
+#   Effective batch size = train_batch_size * N_gpus.
+#   With 8 RTX8000 x train_batch_size=32, effective batch = 256.
+#   You likely need to increase `lr` (linear rule: lr * N, sqrt rule: lr * sqrt(N))
+#   and increase `num_epochs` because the number of optimizer steps per epoch
+#   drops by a factor of N. Baselines below assume single-GPU. Tune before
+#   comparing to CLEAN / Squidly.
+num_epochs: 5
+train_batch_size: 32     # per-GPU batch size
+val_batch_size: 32       # per-GPU batch size (same as train to stay within GPU memory)
+k_neg: 10                # negative samples per positive sample (1:k_neg)
+threshold: 0.9           # classification threshold (AUPRC/AUROC are threshold-free)
+train_ratio: 0.9         # train/val split at protein level
+lr: 1.0e-3
+pos_weight: 1.0
+num_workers: 4           # per-GPU dataloader workers (SLURM needs N_gpus * this many CPUs)
+
+# ---- Distributed training ---------------------------------------------------
+distributed: true        # set false for single-GPU runs
+backend: nccl            # DDP backend; nccl for NVIDIA GPUs
+sync_bn: true            # convert BatchNorm -> SyncBatchNorm in DDP
+
+# ---- Debug ------------------------------------------------------------------
+debug_max_samples: null  # integer to limit dataset size; null = use full CSV

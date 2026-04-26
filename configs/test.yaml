@@ -1,0 +1,33 @@
+# ============================================================================
+# Test configuration for Catalytic Site Prediction (Set A 3D-CNN model on setB_test)
+# ============================================================================
+# Used by test.py to evaluate the 3 best-model checkpoints (one per training
+# seed) on the setB_test dataset. Both balanced (1:k_neg) and full test set
+# evaluation are run by default.
+# ============================================================================
+
+# ---- Which checkpoints to test ---------------------------------------------
+seeds: [42, 123, 2026]              # one trained model per seed (from training summary.json)
+results_dir: /data/data3/conglab/s441865/code/Catalytic_sites_setA_3dcnn/results
+test_save_subdir: test              # outputs go to <results_dir>/<test_save_subdir>/
+
+# ---- Test data paths (setB_test) -------------------------------------------
+test_csv_path: /data/data3/conglab/s441865/dataset/setB_test.csv
+test_pdb_dir:  /data/data3/conglab/s441865/dataset/setB_test/
+test_esm_dir:  /data/data3/conglab/s441865/dataset/esm2_embeddings_setB_test_3B36/
+
+# ---- Feature extraction (must match training) ------------------------------
+esm_layer: 36
+box_size: 20
+voxel_size: 1
+
+# ---- Test-time knobs --------------------------------------------------------
+modes: [balanced, full]             # comma-sep list; subset of {balanced, full}
+test_batch_size: 64
+threshold: 0.9                      # for thresholded metrics (acc, P/R/F1); AUPRC/AUROC are threshold-free
+k_neg: 10                           # negatives per positive in 'balanced' mode
+balanced_seed: 999                  # fixed across model seeds -> all checkpoints score the SAME sample set
+num_workers: 4
+
+# ---- Debug ------------------------------------------------------------------
+debug_max_samples: null             # int or null; null = full setB_test CSV

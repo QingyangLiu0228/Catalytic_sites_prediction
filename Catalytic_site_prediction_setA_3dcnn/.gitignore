@@ -1,0 +1,54 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+
+# Environments
+.env
+.venv
+env/
+venv/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# ====================================================================
+# Project-specific
+# ====================================================================
+
+# SLURM logs
+logs/
+
+# Training outputs - too large for git
+Results/
+*.pt
+*.pth
+*.ckpt
+
+# Protein data - huge and re-downloadable
+*.pdb
+*.cif
+
+# ESM embeddings - huge
+*.esm
+
+# Misc scratch
+scratch/
+tmp/
+*.tmp

@@ -1,0 +1,37 @@
+# ============================================================================
+# Debug TEST configuration - quick end-to-end smoke run
+# ============================================================================
+# Loads only the first 2000 rows of setB_test (~9 positives -> balanced
+# subset of ~99 samples), runs ONE seed (42) in 'balanced' mode only.
+# Should finish in a couple of minutes on a single GPU.
+#
+# Usage:
+#   python test.py --config configs/test_debug.yaml
+# ============================================================================
+
+# ---- Which checkpoints to test ---------------------------------------------
+seeds: [42]                          # single seed for speed
+results_dir: /data/data3/conglab/s441865/code/Catalytic_sites_setA_3dcnn/results
+test_save_subdir: test_debug         # outputs go to results/test_debug/
+
+# ---- Test data paths (setB_test) -------------------------------------------
+test_csv_path: /data/data3/conglab/s441865/dataset/setB_test.csv
+test_pdb_dir:  /data/data3/conglab/s441865/dataset/setB_test/
+test_esm_dir:  /data/data3/conglab/s441865/dataset/esm2_embeddings_setB_test_3B36/
+
+# ---- Feature extraction (must match training) ------------------------------
+esm_layer: 36
+box_size: 20
+voxel_size: 1
+
+# ---- Test-time knobs --------------------------------------------------------
+modes: [balanced]                    # skip 'full' for speed
+test_batch_size: 16
+threshold: 0.9
+k_neg: 10
+balanced_seed: 999
+num_workers: 0                       # easier to debug errors without subprocess
+
+# ---- Debug ------------------------------------------------------------------
+debug_max_samples: 2000              # keep this >= ~2000 to ensure both classes
+                                     # (setB_test has ~9 positives in head(2000))

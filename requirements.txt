@@ -1,0 +1,16 @@
+# Core deep learning
+torch>=1.12
+numpy
+pandas
+
+# Bioinformatics
+biopython
+
+# Metrics & plotting
+scikit-learn
+matplotlib
+seaborn
+
+# Config & UX
+pyyaml
+tqdm

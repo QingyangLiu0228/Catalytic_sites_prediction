@@ -1,0 +1,15 @@
+# ============================================================================
+# Debug configuration - for testing the pipeline end-to-end in a few minutes
+# ============================================================================
+# Inherits everything from default.yaml and overrides only the fields below.
+# Usage:
+#   python train.py --config configs/debug.yaml
+# ============================================================================
+
+seeds: [42]               # single seed
+num_epochs: 1
+debug_max_samples: 5000    # limit dataset size
+val_batch_size: 32         # default.yaml uses 32; lower if val hits cuDNN / OOM
+num_workers: 0            # easier to debug errors without subprocess
+distributed: false        # single-GPU is simpler for debugging
+sync_bn: false            # irrelevant when distributed is false

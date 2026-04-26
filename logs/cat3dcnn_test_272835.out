@@ -1,0 +1,55 @@
+================================================================
+Job started: Fri Apr 24 20:13:56 CDT 2026
+Job ID: 272835
+Node: compute-1-1.local
+GPUs allocated: 0
+Test config: configs/test.yaml
+================================================================
+Python: /home2/s441865/anaconda3/envs/squidly/bin/python
+torch: 1.11.0 CUDA: True devices: 1
+Catalytic Sites Prediction - TEST
+==================================================
+Config: {'seeds': [42, 123, 2026], 'csv_path': '/data/data3/conglab/s441865/code/setA.csv', 'pdb_dir': '/data/data3/conglab/s441865/prepare_mcat_training/step12_pdbs/', 'esm_dir': '/data/data3/conglab/s441865/dataset/esm2_embeddings_setA_train_3B36/', 'save_dir': '/data/data3/conglab/s441865/code/Catalytic_sites_setA_3dcnn/results', 'esm_layer': 36, 'box_size': 20, 'voxel_size': 1, 'num_epochs': 5, 'train_batch_size': 32, 'val_batch_size': 64, 'k_neg': 10, 'threshold': 0.9, 'train_ratio': 0.9, 'lr': 0.001, 'pos_weight': 1.0, 'num_workers': 4, 'distributed': True, 'backend': 'nccl', 'sync_bn': True, 'debug_max_samples': None, 'results_dir': '/data/data3/conglab/s441865/code/Catalytic_sites_setA_3dcnn/results', 'test_save_subdir': 'test', 'test_csv_path': '/data/data3/conglab/s441865/dataset/setB_test.csv', 'test_pdb_dir': '/data/data3/conglab/s441865/dataset/setB_test/', 'test_esm_dir': '/data/data3/conglab/s441865/dataset/esm2_embeddings_setB_test_3B36/', 'modes': ['balanced', 'full'], 'test_batch_size': 64, 'balanced_seed': 999}
+==================================================
+Device: cuda
+Seeds: [42, 123, 2026]
+Modes: ['balanced', 'full']
+Test config snapshot: /data/data3/conglab/s441865/code/Catalytic_sites_setA_3dcnn/results/test/config_test_20260424_201416.yaml
+
+=== Loading setB_test dataset ===
+Filter: dropped 0 rows (0 PDBs without ESM); kept 351394 rows from 941 PDBs
+Loaded test CSV: 351394 samples
+  Positive: 1469
+  Negative: 349925
+
+======================================================================
+SEED 42
+======================================================================
+Loading checkpoint: /data/data3/conglab/s441865/code/Catalytic_sites_setA_3dcnn/results/run_seed42/best_model_20260423_013224.pt
+Sampled 16159 indices: 1469 pos + 14690 neg (1:10)
+
+[seed 42 | mode balanced] writing per-batch log to test_log_balanced_20260424_201416.jsonl
+[seed 42 | mode balanced] dataset-level: AUPRC=0.8482 AUROC=0.9776 F1@0.90=0.7060 P=0.8972 R=0.5820 acc=0.9559  (n=16159)
+
+[seed 42 | mode full] writing per-batch log to test_log_full_20260424_201416.jsonl
+[seed 42 | mode full] dataset-level: AUPRC=0.2944 AUROC=0.9785 F1@0.90=0.3892 P=0.2923 R=0.5820 acc=0.9924  (n=351394)
+
+======================================================================
+SEED 123
+======================================================================
+Loading checkpoint: /data/data3/conglab/s441865/code/Catalytic_sites_setA_3dcnn/results/run_seed123/best_model_20260423_051132.pt
+Sampled 16159 indices: 1469 pos + 14690 neg (1:10)
+
+[seed 123 | mode balanced] writing per-batch log to test_log_balanced_20260424_201416.jsonl
+[seed 123 | mode balanced] dataset-level: AUPRC=0.8577 AUROC=0.9812 F1@0.90=0.7569 P=0.8736 R=0.6678 acc=0.9610  (n=16159)
+
+[seed 123 | mode full] writing per-batch log to test_log_full_20260424_201416.jsonl
+[seed 123 | mode full] dataset-level: AUPRC=0.3062 AUROC=0.9821 F1@0.90=0.3648 P=0.2509 R=0.6678 acc=0.9903  (n=351394)
+
+======================================================================
+SEED 2026
+======================================================================
+Loading checkpoint: /data/data3/conglab/s441865/code/Catalytic_sites_setA_3dcnn/results/run_seed2026/best_model_20260423_085019.pt
+Sampled 16159 indices: 1469 pos + 14690 neg (1:10)
+
+[seed 2026 | mode balanced] writing per-batch log to test_log_balanced_20260424_201416.jsonl
