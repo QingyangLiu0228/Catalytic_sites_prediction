@@ -1,0 +1,54 @@
+# ============================================================================
+# Configuration for benchmark_enzyme_nonenzyme.py (3D-CNN, Set A repo)
+# ============================================================================
+# Mirrors configs/benchmark in the GNN sibling repo. Used to score every
+# results/run_seed*/ checkpoint on a protein-level enzyme vs non-enzyme task
+# and aggregate per-seed AUROC / AUPRC into
+# results/benchmark_enzyme_nonenzyme_summary.json.
+#
+# Inheritance: this file is auto-merged on top of configs/default.yaml by
+# utils.load_config(), so any unset field falls back to default.yaml.
+# ============================================================================
+
+# ---- Which checkpoints to test ---------------------------------------------
+seeds: [42, 123, 2026]              # one trained model per seed (ignored if checkpoint_paths set)
+results_dir: /data/data3/conglab/s441865/code/Catalytic_sites_setA_3dcnn/results
+
+# Optional: exact best_model_*.pt files list (recommended when multiple dated
+# checkpoints live under each run_seed*/). When omitted, the script chooses the
+# newest best_model_*.pt by mtime in each run dir.
+checkpoint_paths:
+  - /data/data3/conglab/s441865/code/Catalytic_sites_setA_3dcnn/results/run_seed42/best_model_20260423_013224.pt
+  - /data/data3/conglab/s441865/code/Catalytic_sites_setA_3dcnn/results/run_seed123/best_model_20260423_051132.pt
+  - /data/data3/conglab/s441865/code/Catalytic_sites_setA_3dcnn/results/run_seed2026/best_model_20260423_085019.pt
+
+# ---- Feature extraction (must match training!) -----------------------------
+# IMPORTANT:
+#   * The 3D-CNN expects a 2560-dim ESM-2 3B embedding per voxel.
+#   * The ESM directories below MUST contain the same `esm_layer` that was
+#     used at training time. configs/test.yaml uses layer 36; default.yaml
+#     defines layer 33 -- pick whichever your run_seed* checkpoints were
+#     trained with and override here as needed.
+esm_layer: 36
+box_size: 20
+voxel_size: 1
+
+# ---- Enzyme vs non-enzyme protein-level benchmark --------------------------
+benchmark:
+  enzyme:
+    # setB_test (held-out enzymes), setB-style filenames:
+    #   <acc>.pdb     and     sp|<acc>|esm.pt        (no chain suffix)
+    pdb_dir:   /data/data3/conglab/s441865/dataset/setB_test/
+    esm_dir:   /data/data3/conglab/s441865/dataset/esm2_embeddings_setB_test_3B36/
+    fasta:     /data/data3/conglab/s441865/dataset/setB_test.fasta
+    chain:     A
+  non_enzyme:
+    # Curated non-enzyme set (Q. Cong's prepare_uniprot_training pipeline)
+    pdb_dir:   /data/data1/conglab/qcong/for/rongqing/prepare_uniprot_training/step17_pdbs/
+    esm_dir:   /data/data3/conglab/s441865/dataset/esm2_embeddings_non_enzyme_3B36
+    fasta:     /data/data1/conglab/qcong/for/rongqing/prepare_uniprot_training/step14_sample_seqs.fa
+    chain:     A
+  batch_size: 8                     # per-PDB residue batch (each voxel ~80 MB on float32)
+  thresholds: [0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.40, 0.50, 0.60, 0.70, 0.80,
+               0.90, 0.91, 0.92, 0.93, 0.94, 0.95, 0.96, 0.97, 0.98, 0.99]
+  max_proteins_per_set: null        # int -> truncate each set for a quick smoke test

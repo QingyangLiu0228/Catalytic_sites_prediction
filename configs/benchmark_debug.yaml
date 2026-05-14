@@ -1,0 +1,27 @@
+# ============================================================================
+# Smoke-test config for benchmark_enzyme_nonenzyme.py (3D-CNN).
+# Limits each of the enzyme + non-enzyme sets to a handful of proteins so
+# the multi-seed benchmark finishes in ~minutes instead of hours.
+# Auto-merged on top of default.yaml; override only the fields below.
+# ============================================================================
+
+seeds: [42, 123, 2026]
+results_dir: /data/data3/conglab/s441865/code/Catalytic_sites_setA_3dcnn/results
+
+esm_layer: 36
+box_size: 20
+voxel_size: 1
+
+benchmark:
+  enzyme:
+    pdb_dir:   /data/data3/conglab/s441865/dataset/setB_test/
+    esm_dir:   /data/data3/conglab/s441865/dataset/esm2_embeddings_setB_test_3B36/
+    fasta:     /data/data3/conglab/s441865/dataset/setB_test.fasta
+    chain:     A
+  non_enzyme:
+    pdb_dir:   /data/data1/conglab/qcong/for/rongqing/prepare_uniprot_training/step17_pdbs/
+    esm_dir:   /data/data3/conglab/s441865/dataset/esm2_embeddings_non_enzyme_3B36/
+    fasta:     /data/data1/conglab/qcong/for/rongqing/prepare_uniprot_training/step14_sample_seqs.fa
+    chain:     A
+  batch_size: 4
+  max_proteins_per_set: 5

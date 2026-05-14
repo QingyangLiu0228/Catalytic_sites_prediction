@@ -12,11 +12,11 @@ seeds: [42, 123, 2026]   # Multi-seed training, run sequentially
 # ---- Data paths -------------------------------------------------------------
 csv_path: /data/data3/conglab/s441865/code/setA.csv
 pdb_dir: /data/data3/conglab/s441865/prepare_mcat_training/step12_pdbs/
-esm_dir: /data/data3/conglab/s441865/esm2_embeddings_fasta/
+esm_dir: /data/data3/conglab/s441865/dataset/esm2_embeddings_setA_train_3B36/
 save_dir: /data/data3/conglab/s441865/code/Catalytic_sites_setA_3dcnn/results
 
 # ---- Feature extraction -----------------------------------------------------
-esm_layer: 33            # 0..36 for ESM-2 3B
+esm_layer: 36           # 0..36 for ESM-2 3B
 box_size: 20             # 3D voxel box side length (Angstrom)
 voxel_size: 1            # Discretization resolution
 

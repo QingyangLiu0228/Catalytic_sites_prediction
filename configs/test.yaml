@@ -7,7 +7,7 @@
 # ============================================================================
 
 # ---- Which checkpoints to test ---------------------------------------------
-seeds: [42, 123, 2026]              # one trained model per seed (from training summary.json)
+seeds: [2026]              # one trained model per seed (from training summary.json)
 results_dir: /data/data3/conglab/s441865/code/Catalytic_sites_setA_3dcnn/results
 test_save_subdir: test              # outputs go to <results_dir>/<test_save_subdir>/
 
