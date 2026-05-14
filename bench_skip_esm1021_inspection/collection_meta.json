@@ -1,0 +1,8 @@
+{
+  "source_log": "/data/data3/conglab/s441865/code/Catalytic_site_prediction_setA_gnn/logs/catGNN_bench_272998.out",
+  "gnn_bench_stamp": "20260501_072743",
+  "threedcnn_bench_stamp": "20260429_191934",
+  "n_skip_proteins": 97,
+  "n_unique_accessions": 97,
+  "note_gnn": "Proteins skipped during GNN benchmark inference are absent from GNN bench_*.csv; filtered excerpts are header-only if no rows."
+}

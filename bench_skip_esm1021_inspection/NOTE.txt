@@ -1,0 +1,10 @@
+Source: catGNN_bench_272998.out [SKIP] lines (ESM length 1021 / PDB errors on GNN benchmark).
+
+skip_accessions.tsv — 97 proteins (15 enzyme + 82 non-enzyme) with skip reasons.
+
+GNN (stamp 20260501_072743): bench_*_filtered.csv files are HEADER ONLY — skipped
+proteins never received GNN inference, so they do not appear in GNN benchmark CSVs.
+
+3dcnn (stamp 20260429_191934): per-residue probs for the same accessions (full
+benchmark). Use merged file per seed for one-stop inspection:
+  3dcnn/run_seed<seed>/bench_ALL_skip_proteins_merged_20260429_191934_filtered.csv
